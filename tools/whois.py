@@ -1,6 +1,7 @@
 from ipwhois import IPWhois
 
 def get_whois():
-    obj = IPWhois("site_ip")
+    ip = input("Enter ip : ")
+    obj = IPWhois(ip)
 
     print(obj.lookup_whois())
