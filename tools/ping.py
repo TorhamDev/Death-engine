@@ -1,5 +1,5 @@
 import subprocess
-import platform
+import platform  
 
 
 def ping_clear(ping_output):
