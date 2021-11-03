@@ -6,3 +6,4 @@ ipwhois==1.2.0
 pyping==0.0.6
 requests==2.26.0
 urllib3==1.26.7
+sockets==1.0.0
