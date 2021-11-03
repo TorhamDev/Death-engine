@@ -1,5 +1,6 @@
 import subprocess
-import platform  
+import platform
+import sockets
 
 
 def ping_clear(ping_output):
