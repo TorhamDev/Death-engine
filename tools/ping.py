@@ -1,6 +1,6 @@
 import subprocess
 import platform  
-
+import socket
 
 def ping_clear(ping_output):
     """
