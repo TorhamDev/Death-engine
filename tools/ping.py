@@ -1,16 +1,13 @@
 import subprocess
-import platform  
+import platform
 import socket
 
-def ping_clear(ping_output):
+
+def ping_clear(ip):
     """
     clear ping function output and return ip 
     """
-    if platform.system().lower()=='windows': 
-        ip = ping_output.split(" ")[2].replace("[","").replace("]","") 
-    else:
-        ip = ping_output.split(" ")[2].replace("(","").replace(")","")
-
+    ip = socket.gethostbyname(ip)
     return ip
 
 def ping(host):
