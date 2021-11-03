@@ -1,7 +1,7 @@
+from ping import ping_clear
 from ipwhois import IPWhois
 
 def get_whois():
-    ip = input("Enter ip : ")
+    ping_clear(ip)
     obj = IPWhois(ip)
-
-    print(obj.lookup_whois())
+    return(obj.lookup_whois())
