@@ -3,12 +3,7 @@ import platform
 import socket
 
 
-def ping_clear(ip):
-    """
-    clear ping function output and return ip 
-    """
-    ip = socket.gethostbyname(ip)
-    return ip
+
 
 def ping(host):
     """
@@ -17,7 +12,18 @@ def ping(host):
 
     # Option for the number of packets as a function of
     param = '-n' if platform.system().lower()=='windows' else '-c'
-
+    
     # Building the command. Ex: "ping -c 1 google.com"
     command = ['ping', param, '1', host]
-    return ping_clear(subprocess.check_output(command).decode())
+    
+    output = subprocess.check_output(command).decode()
+
+    target_ip = output.split(" ")[2]
+
+    if platform.system().lower()=='windows':
+        target_ip = target_ip.replace("[","").replace("]","")
+
+    else:
+        target_ip = target_ip.replace("(","").replace(")","")
+
+    return(target_ip)
