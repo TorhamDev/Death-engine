@@ -1,19 +1,6 @@
 from tools import whois
 import os, platform
 
-banner()
-ch = input()
-if ch == '0':
-    whois.get_whois()
-elif ch == '1':
-    cls()
-    banner()
-else:
-    cls()
-    banner()
-
-
-
 def banner():
     print(''' Death engine
     [0] Whois
@@ -25,3 +12,18 @@ def cls():
         os.system("clear")
     else:
         os.system("cls")
+
+cls()
+banner()
+ch = input()
+if ch == '0':
+    ip = input('Enter domain ot ip address : ')
+    print(whois.get_whois(ip))
+    banner()
+elif ch == '1':
+    cls()
+    banner()
+else:
+    cls()
+    banner()
+
