@@ -1,10 +1,27 @@
-from tools import whois
+from tools import whois, ping
 import os, platform
+from optparse import OptionParser
+
+
+
+
+
+parser = OptionParser()
+
+
+parser.add_option("-t", "--target", dest="target",
+                metavar="url",help="define target")
+
+parser.add_option("-w", "--whois", dest="whois",
+                action="store_true", default=False,
+                metavar="ip",help="get whois from target with IP ")
+
 
 
 def banner():
     pass
     
+
 def cls():
     if platform.uname()[0] == "Linux" :
         os.system("clear")
@@ -40,6 +57,6 @@ def main():
                     
                     
 cls()
-mainm()
 
+main()
 
