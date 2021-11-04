@@ -28,20 +28,34 @@ def cls():
     else:
         os.system("cls")
 
+
 def main():
+
+    # start banner
+    banner()
+
     (options, args) = parser.parse_args()
     print(options)
     
+    # if target not define
     if not options.target:
         print("enter target or use -h for see help")
-        exit
+        exit()
 
     if options.target:
-        #target = str(options.target).replace("https://","").replace("http://","").replace("/","")
-        #target_ip = ping.ping(target)
-        print('hi')
-        #print(target_ip)
-    #print(whois.get_whois(target_ip))
+        
+        target = str(options.target).replace("https://","").replace("http://","").replace("/","")
+
+        # if target not up
+        if not check_site.site_is_up(target):
+            print("target not available")
+            exit()
+
+        # if target up
+        else:
+            target_ip = ping.ipfind(target)
+            print(Fore.GREEN+"Target Ip = "+ Fore.RESET + target_ip + "\n ")
+
     
     if options.whois:
         target_ip = str(options.whois).replace("https://","").replace("http://","").replace("/","")
