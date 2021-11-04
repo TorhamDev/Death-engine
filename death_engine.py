@@ -58,8 +58,7 @@ def main():
 
     
     if options.whois:
-        target_ip = str(options.whois).replace("https://","").replace("http://","").replace("/","")
-        result = whois.get_whois(target_ip)
+        result = whois.get_whois(target)
         
         for key, value in result.items():
             if key != 'nets':
