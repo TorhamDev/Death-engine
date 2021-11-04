@@ -1,11 +1,9 @@
 from tools import whois
 import os, platform
 
+
 def banner():
-    print('''Death engine
-    [0] Whois
-    [1] none
-    ''')
+    pass
     
 def cls():
     if platform.uname()[0] == "Linux" :
@@ -13,22 +11,34 @@ def cls():
     else:
         os.system("cls")
 
-def mainm():
-    banner()
-    ch = input()
-    cls()
-    if ch == '0':
-        ip = input('Enter domain ot ip address : ')
-        print(whois.get_whois(ip))
-        mainm()
+def main():
+    (options, args) = parser.parse_args()
+    print(options)
     
-    elif ch == '1':
-        cls()
-        mainm()
+    if not options.target:
+        print("enter target or use -h for see help")
+        exit
+
+    if options.target:
+        #target = str(options.target).replace("https://","").replace("http://","").replace("/","")
+        #target_ip = ping.ping(target)
+        print('hi')
+        #print(target_ip)
+    #print(whois.get_whois(target_ip))
     
-    else:
-        cls()
-        mainm()
+    if options.whois:
+        target_ip = str(options.whois).replace("https://","").replace("http://","").replace("/","")
+        result = whois.get_whois(target_ip)
+        
+        for key, value in result.items():
+            if key != 'nets':
+                print(key , ' : ' , value)
+            elif key == 'nets':
+                nets = result.get('nets')[0]
+                for key, value in nets.items():
+                    print(key , ' : ' , value)
+                    
+                    
 cls()
 mainm()
 
