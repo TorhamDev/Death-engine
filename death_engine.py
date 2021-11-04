@@ -1,7 +1,7 @@
-from tools import whois, ping
+from tools import whois, ping, check_site
 import os, platform
 from optparse import OptionParser
-
+from colorama import Fore
 
 
 
@@ -19,7 +19,7 @@ parser.add_option("-w", "--whois", dest="whois",
 
 
 def banner():
-    pass
+    print(Fore.GREEN+"DEATH ENGINE"+Fore.RESET)
     
 
 def cls():
