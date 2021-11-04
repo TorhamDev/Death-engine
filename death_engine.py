@@ -14,13 +14,50 @@ parser.add_option("-t", "--target", dest="target",
 
 parser.add_option("-w", "--whois", dest="whois",
                 action="store_true", default=False,
-                metavar="ip",help="get whois from target with IP ")
+                metavar="ip",help="get whois from target")
 
 
 
 def banner():
-    print(Fore.GREEN+"DEATH ENGINE"+Fore.RESET)
+    '''
+    start banner
     
+    '''
+
+    banner = Fore.RED+'''
+                      ,____
+                      |---.\\
+              ___     |    `
+             / .-\  ./=)
+            |  |"|_/\/|
+            ;  |-;| /_|
+           / \_| |/ \ |
+          /      \/\( |
+          |   /  |` ) |
+          /   \ _/    |
+         /--._/  \    |
+         `/|)    |    /
+           /     |   |
+         .'      |   |
+        /         \  |
+       (_.-.__.__./  /\n'''+Fore.GREEN+'''
+  ▓█████▄ ▓█████  ▄▄▄      ▄▄▄█████▓ ██░ ██             ▓█████  ███▄    █   ▄████  ██▓ ███▄    █ ▓█████ 
+  ▒██▀ ██▌▓█   ▀ ▒████▄    ▓  ██▒ ▓▒▓██░ ██▒            ▓█   ▀  ██ ▀█   █  ██▒ ▀█▒▓██▒ ██ ▀█   █ ▓█   ▀ 
+  ░██   █▌▒███   ▒██  ▀█▄  ▒ ▓██░ ▒░▒██▀▀██░            ▒███   ▓██  ▀█ ██▒▒██░▄▄▄░▒██▒▓██  ▀█ ██▒▒███   
+  ░▓█▄   ▌▒▓█  ▄ ░██▄▄▄▄██ ░ ▓██▓ ░ ░▓█ ░██             ▒▓█  ▄ ▓██▒  ▐▌██▒░▓█  ██▓░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+  ░▒████▓ ░▒████▒ ▓█   ▓██▒  ▒██▒ ░ ░▓█▒░██▓            ░▒████▒▒██░   ▓██░░▒▓███▀▒░██░▒██░   ▓██░░▒████▒
+   ▒▒▓  ▒ ░░ ▒░ ░ ▒▒   ▓▒█░  ▒ ░░    ▒ ░░▒░▒            ░░ ▒░ ░░ ▒░   ▒ ▒  ░▒   ▒ ░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+   ░ ▒  ▒  ░ ░  ░  ▒   ▒▒ ░    ░     ▒ ░▒░ ░             ░ ░  ░░ ░░   ░ ▒░  ░   ░  ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+   ░ ░  ░    ░     ░   ▒     ░       ░  ░░ ░               ░      ░   ░ ░ ░ ░   ░  ▒ ░   ░   ░ ░    ░   
+     ░       ░  ░      ░  ░          ░  ░  ░               ░  ░         ░       ░  ░           ░    ░  ░
+   ░   
+    '''.title()
+
+    
+    print(banner+Fore.RESET)
+    
+
+
 
 def cls():
     if platform.uname()[0] == "Linux" :
@@ -54,10 +91,16 @@ def main():
         # if target up
         else:
             target_ip = ping.ipfind(target)
+            print(Fore.GREEN+"Target = "+ Fore.RESET + target + "\n ")
             print(Fore.GREEN+"Target Ip = "+ Fore.RESET + target_ip + "\n ")
 
     
     if options.whois:
+        print(Fore.GREEN+'''
+            =======|''' + Fore.RED+''' Get Whois ''' +Fore.GREEN+'''|=======
+        '''+Fore.RESET.title())
+
+
         result = whois.get_whois(target)
         for key, value in result.items():
             if key != 'nets':
