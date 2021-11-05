@@ -99,8 +99,8 @@ def main():
         print(Fore.GREEN+'''
             =======|''' + Fore.RED+''' Get Whois ''' +Fore.GREEN+'''|=======
         '''+Fore.RESET.title())
-
-
+        
+        
         result = whois.get_whois(target)
         for key, value in result.items():
             if key != 'nets':
@@ -118,8 +118,19 @@ def main():
                 
                 else:
                     continue
-                
-                    
+        
+        
+    if options.dns:
+        result = dnsf.dnsl(target)
+        for key, value in result.items():
+            key = str(key)
+            print(Fore.GREEN + '[+] ' + Fore.CYAN + key + ' :' + Fore.RESET)
+            for rec in value:
+                print(str(rec) + '')
+            print('\n')
+            
+            
+                  
 cls()
 
 main()
