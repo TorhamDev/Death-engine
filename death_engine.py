@@ -1,4 +1,4 @@
-from tools import whois, ping, check_site
+from tools import whois, ping, check_site, dnsf
 import os, platform
 from optparse import OptionParser
 from colorama import Fore
@@ -15,6 +15,10 @@ parser.add_option("-t", "--target", dest="target",
 parser.add_option("-w", "--whois", dest="whois",
                 action="store_true", default=False,
                 metavar="ip",help="get whois from target")
+
+parser.add_option("-d", "--dns", dest="dns",
+                action="store_true", default=False,
+                metavar="hostname",help="get hostname from target")
 
 
 
