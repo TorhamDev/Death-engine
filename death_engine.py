@@ -1,4 +1,4 @@
-from tools import whois, ping, check_site
+from tools import whois, ping, check_site, dnsf, googledork
 import os, platform
 from optparse import OptionParser
 from colorama import Fore
@@ -16,6 +16,13 @@ parser.add_option("-w", "--whois", dest="whois",
                 action="store_true", default=False,
                 metavar="ip",help="get whois from target")
 
+parser.add_option("-d", "--dns", dest="dns",
+                action="store_true", default=False,
+                metavar="ip",help="get dns lookup")
+
+parser.add_option("-D", "--Dork", dest="dork",
+                action="store_true", default=False,
+                help="dorking in google for target data")
 
 
 def banner():
@@ -50,8 +57,12 @@ def banner():
    ░ ▒  ▒  ░ ░  ░  ▒   ▒▒ ░    ░     ▒ ░▒░ ░             ░ ░  ░░ ░░   ░ ▒░  ░   ░  ▒ ░░ ░░   ░ ▒░ ░ ░  ░
    ░ ░  ░    ░     ░   ▒     ░       ░  ░░ ░               ░      ░   ░ ░ ░ ░   ░  ▒ ░   ░   ░ ░    ░   
      ░       ░  ░      ░  ░          ░  ░  ░               ░  ░         ░       ░  ░           ░    ░  ░
-   ░   
-    '''.title()
+   ░ 
+   '''+Fore.LIGHTBLUE_EX+'''
+    ▣ Created By '''+Fore.YELLOW+''': TorhamDev and psyk3r '''+Fore.LIGHTBLUE_EX+'''
+
+    ▣ Version : '''+Fore.YELLOW+'''0.1
+    '''
 
     
     print(banner+Fore.RESET)
@@ -72,11 +83,10 @@ def main():
     banner()
 
     (options, args) = parser.parse_args()
-    print(options)
     
     # if target not define
     if not options.target:
-        print("enter target or use -h for see help")
+        print(Fore.GREEN +'[+] ' + Fore.CYAN+"Enter Target Or use "+Fore.RED+"--help "+Fore.CYAN+"for see help page"+ Fore.RESET)
         exit()
 
     if options.target:
@@ -90,6 +100,7 @@ def main():
 
         # if target up
         else:
+            print("⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞")
             target_ip = ping.ipfind(target)
             print(Fore.GREEN+"Target = "+ Fore.RESET + target + "\n ")
             print(Fore.GREEN+"Target Ip = "+ Fore.RESET + target_ip + "\n ")
@@ -121,15 +132,23 @@ def main():
         
         
     if options.dns:
+        print(Fore.GREEN+'''
+            =======|''' + Fore.RED+''' Get dns lookup ''' +Fore.GREEN+'''|=======
+        '''+Fore.RESET.title())
         result = dnsf.dnsl(target)
         for key, value in result.items():
             key = str(key)
             print(Fore.GREEN + '[+] ' + Fore.CYAN + key + ' :' + Fore.RESET)
             for rec in value:
-                print(str(rec) + '')
-            print('\n')
-            
-            
+                print(str(rec))
+
+    
+    if options.dork:
+        print(Fore.GREEN+'''
+            =======|''' + Fore.RED+''' start google dork ''' +Fore.GREEN+'''|=======
+        '''+Fore.RESET.title())
+        googledork.search(target=target)
+
                   
 cls()
 
