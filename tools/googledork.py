@@ -6,7 +6,7 @@ from random import choice
 from os import listdir, getcwd
 from os.path import isfile, join
 from colorama import Fore
-
+from urllib.parse import unquote
 
 
 
@@ -77,13 +77,13 @@ def search(target):
                     pass
 
                 else:
-                    search_output.append(i)
+                    search_output.append(unquote(unquote(i)))
         
         time.sleep(6)
 
 
     if len(search_output) == 0:
-        print("[+] no link finded".title())
+        print("[+] no link finded\n\t What has happened?\n\tYou may have been blocked by Google or the Dorks may not have worked.".title())
 
     else:
         for o in search_output:
