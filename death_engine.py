@@ -86,7 +86,7 @@ def main():
     
     # if target not define
     if not options.target:
-        print(Fore.GREEN +'[+] ' + Fore.CYAN+"Enter Target Or use "+Fore.RED+"--help "+Fore.CYAN+"for see help page"+ Fore.RESET)
+        print(Fore.GREEN +'[+] ' + Fore.CYAN+"Enter Target Or Use "+Fore.RED+"--help "+Fore.CYAN+"to see help page"+ Fore.RESET)
         exit()
 
     if options.target:
@@ -133,7 +133,7 @@ def main():
         
     if options.dns:
         print(Fore.GREEN+'''
-            =======|''' + Fore.RED+''' Get dns lookup ''' +Fore.GREEN+'''|=======
+            =======|''' + Fore.RED+''' Dns lookup ''' +Fore.GREEN+'''|=======
         '''+Fore.RESET.title())
         result = dnsf.dnsl(target)
         for key, value in result.items():
@@ -145,7 +145,7 @@ def main():
     
     if options.dork:
         print(Fore.GREEN+'''
-            =======|''' + Fore.RED+''' start google dork ''' +Fore.GREEN+'''|=======
+            =======|''' + Fore.RED+''' Google dork ''' +Fore.GREEN+'''|=======
         '''+Fore.RESET.title())
         googledork.search(target=target)
 

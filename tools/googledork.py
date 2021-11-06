@@ -27,7 +27,7 @@ def select_dorks_file():
     count = 0
     pwd = getcwd()
     dorks_path = join(pwd,"tools/google_dork")
-    print("[+] your Dorks path, you can add your dork file here : ".title(),dorks_path)
+    print("[+] Dorks path, you can add your dork files here : ".title(),dorks_path)
     dork_list = [f for f in listdir(dorks_path) if isfile(join(dorks_path, f))]
     dork_selected = ''
     for i in dork_list:
