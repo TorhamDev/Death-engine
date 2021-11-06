@@ -1,10 +1,13 @@
+beautifulsoup4==4.10.0
 certifi==2021.10.8
 charset-normalizer==2.0.7
 colorama==0.4.4
 dnspython==2.0.0
 idna==3.3
 ipwhois==1.2.0
+lxml==4.6.4
 pyping==0.0.6
 requests==2.26.0
 sockets==1.0.0
+soupsieve==2.3
 urllib3==1.26.7
