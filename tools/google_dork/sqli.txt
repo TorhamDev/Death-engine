@@ -1,0 +1,2 @@
+inurl:php?id=
+inurl:php?id=
