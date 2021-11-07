@@ -14,15 +14,15 @@ parser.add_option("-t", "--target", dest="target",
 
 parser.add_option("-w", "--whois", dest="whois",
                 action="store_true", default=False,
-                metavar="ip",help="get whois from target")
+                metavar="ip",help="Target whois lookup")
 
 parser.add_option("-d", "--dns", dest="dns",
                 action="store_true", default=False,
-                metavar="ip",help="get dns lookup")
+                metavar="ip",help="Dns lookup")
 
 parser.add_option("-D", "--Dork", dest="dork",
                 action="store_true", default=False,
-                help="dorking in google for target data")
+                help="Google dorking for target data")
 
 
 def banner():
@@ -144,8 +144,8 @@ def main():
 
     
     if options.dork:
-        print(Fore.GREEN+'''
-            =======|''' + Fore.RED+''' Google dork ''' +Fore.GREEN+'''|=======
+        print(Fore.RED+'''
+            =======|''' + Fore.GREEN +''' Google dork ''' + Fore.RED +'''|=======
         '''+Fore.RESET.title())
         googledork.search(target=target)
 
