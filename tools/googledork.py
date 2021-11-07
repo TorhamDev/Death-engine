@@ -27,15 +27,15 @@ def select_dorks_file():
     count = 0
     pwd = getcwd()
     dorks_path = join(pwd,"tools/google_dork")
-    print("[+] Dorks path, you can add your dork files here : ".title(),dorks_path)
+    print(Fore.CYAN + "[*] Dorks path, you can add your dork files here : ".title(),dorks_path + '\n')
     dork_list = [f for f in listdir(dorks_path) if isfile(join(dorks_path, f))]
     dork_selected = ''
     for i in dork_list:
-        print(Fore.RED+f"\t{count}"+Fore.RESET+" : "+Fore.BLUE+f"{i}")
+        print(Fore.RED +f"\t[{count}]"+Fore.RESET+" : "+Fore.BLUE+f"{i}")
         count += 1
     
-    print(Fore.YELLOW+"[+] select your dork".title())
-    dork_selected = int(input(Fore.GREEN+"Enter Namber: "+Fore.RESET))
+    print(Fore.GREEN+"\n[*] Select a dork list".title())
+    dork_selected = int(input(Fore.GREEN+"Enter Dork List Number: "+Fore.RESET))
     
     return(dork_list[dork_selected])
 
@@ -83,8 +83,10 @@ def search(target):
 
 
     if len(search_output) == 0:
-        print("[+] no link finded\n\t What has happened?\n\tYou may have been blocked by Google or the Dorks may not have worked.".title())
+        print(Fore.RED + "[-] No link founded\n\tYou may have been blocked by Google or the dork list may have not get a hit.".title() + Fore.RESET)
 
     else:
         for o in search_output:
             print(Fore.RED+"LINK : "+Fore.RESET,o)
+            
+            
