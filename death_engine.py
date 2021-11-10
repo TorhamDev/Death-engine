@@ -1,4 +1,5 @@
 from tools import whois, ping, check_site, dnsf, googledork
+from webcrawler import crawler
 import os, platform
 from optparse import OptionParser
 from colorama import Fore
@@ -23,6 +24,10 @@ parser.add_option("-d", "--dns", dest="dns",
 parser.add_option("-D", "--Dork", dest="dork",
                 action="store_true", default=False,
                 help="Google dorking for target data")
+
+parser.add_option("-c", "--crawl", dest="crawl",
+                action="store_true", default=False,
+                help="Crawl and save website directories")
 
 
 def banner():
@@ -148,6 +153,14 @@ def main():
             =======|''' + Fore.GREEN +''' Google dork ''' + Fore.RED +'''|=======
         '''+Fore.RESET.title())
         googledork.search(target=target)
+
+
+    if options.crawl:
+        print(Fore.RED+'''
+            =======|''' + Fore.GREEN +''' Google dork ''' + Fore.RED +'''|=======
+        '''+Fore.RESET.title()+Fore.RESET)
+        target = 'https://' + target
+        crawler.crawl(target)
 
                   
 cls()
