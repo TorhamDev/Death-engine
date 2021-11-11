@@ -1,5 +1,5 @@
-import threading
-import os
+import threading, os
+from colorama import Fore
 from queue import Queue
 from .spider import Spider
 from .domain import *
@@ -27,7 +27,7 @@ def create_jobs(QUEUE_FILE):
 def crawl_start(QUEUE_FILE):
     queued_links = file_to_set(QUEUE_FILE)
     if len(queued_links) > 0:
-        print(str(len(queued_links)) + ' links in the queue')
+        print(Fore.CYAN + '[*]' + Fore.LIGHTCYAN_EX + str(len(queued_links)) + ' links in the queue' + Fore.RESET)
         create_jobs(QUEUE_FILE)
 
 def crawl(HOMEPAGE):
