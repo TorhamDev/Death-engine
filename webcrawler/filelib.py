@@ -1,12 +1,13 @@
 import os
+from colorama import Fore
 
 def create_dir(directory):
     if os.path.exists(directory):
-        print('[*] A folder with your project name already exists !\nMove, remove or rename and then run the script to continue')
+        print(Fore.LIGHTRED_EX + '[*] A folder with your project name already exists !\nMove, remove or rename and then run the script to continue\n' + Fore.RESET)
         return False
     if not os.path.exists(directory):
         os.makedirs(directory)
-        print('[*] Crawl directory created : ' + directory)
+        print(Fore.LIGHTBLUE_EX + '[*] Crawl directory created : ' + directory + Fore.RESET + '\n')
 
 def create_files(project_name, base_url):
     queue = os.path.join(project_name , 'queue.txt')
