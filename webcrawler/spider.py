@@ -20,7 +20,7 @@ class Spider:
         Spider.queue_file = Spider.project_name + '/queue.txt'
         Spider.crawled_file = Spider.project_name + '/crawled.txt'
         self.boot()
-        self.crawl_page('First spider \n', Spider.base_url)
+        self.crawl_page('First spider : ', Spider.base_url)
 
     @staticmethod
     def boot():
@@ -33,7 +33,7 @@ class Spider:
     @staticmethod
     def crawl_page(thread_name, page_url):
         if page_url not in Spider.crawled:
-            print(thread_name + '[+] crawling : ' + page_url)
+            print(Fore.GREEN + '[+]' + Fore.LIGHTGREEN_EX + ' crawling : ' + Fore.RESET + page_url)
             #print(str(len(Spider.queue)) + ' addresess in queue & ' + str(len(Spider.crawled)) + ' crawled')
             Spider.add_links_to_queue(Spider.gather_links(page_url))
             Spider.queue.remove(page_url)
@@ -54,7 +54,7 @@ class Spider:
             finder = LinkGrabber(Spider.base_url, page_url)
             finder.feed(html_string)
         except Exception as e:
-            print(str(e))
+            print(Fore.RED + '[*] ' + str(e) + Fore.RESET)
             return set()
         return finder.page_links()
     
@@ -71,4 +71,3 @@ class Spider:
     def update_files():
         set_to_file(Spider.queue, Spider.queue_file)
         set_to_file(Spider.crawled, Spider.crawled_file)
-
