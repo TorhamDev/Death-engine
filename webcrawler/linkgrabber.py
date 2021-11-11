@@ -33,7 +33,3 @@ class LinkGrabber(HTMLParser):
     
     def error(self, message):
         pass
-
-#finder = LinkGrabber()
-#finder.feed('<html></html>')
-
