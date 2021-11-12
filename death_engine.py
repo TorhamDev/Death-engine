@@ -1,4 +1,4 @@
-from tools import whois, ping, check_site, dnsf, googledork
+from tools import whois, ping, check_site, dnsf, googledork, nmapScan
 from webcrawler import crawler
 import os, platform
 from optparse import OptionParser
@@ -28,6 +28,10 @@ parser.add_option("-D", "--Dork", dest="dork",
 parser.add_option("-c", "--crawl", dest="crawl",
                 action="store_true", default=False,
                 help="Crawl and save website directories")
+
+parser.add_option("--nmap", dest="nmap",
+                action="store_true", default=False,
+                help="Comprehensive Scan")
 
 
 def banner():
@@ -157,12 +161,16 @@ def main():
 
     if options.crawl:
         print(Fore.RED+'''
-            =======|''' + Fore.GREEN +''' Google dork ''' + Fore.RED +'''|=======
+            =======|''' + Fore.GREEN +''' Crawl ''' + Fore.RED +'''|=======
         '''+Fore.RESET.title()+Fore.RESET)
         target = 'https://' + target
         crawler.crawl(target)
 
-                  
+    if options.nmap:
+        print(Fore.RED+'''
+            =======|''' + Fore.GREEN +''' Nmap Scan ''' + Fore.RED +'''|=======
+        '''+Fore.RESET.title()+Fore.RESET)
+        nmapScan.nmapScanner(target_ip)
 cls()
 
 main()
