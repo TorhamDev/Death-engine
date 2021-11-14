@@ -114,44 +114,29 @@ def main():
             print(Fore.GREEN+"Target = "+ Fore.RESET + target + "\n ")
             print(Fore.GREEN+"Target Ip = "+ Fore.RESET + target_ip + "\n ")
 
-    
-    if options.whois:
-        print(Fore.GREEN+'''
-            =======|''' + Fore.RED+''' Get Whois ''' +Fore.GREEN+'''|=======
-        '''+Fore.RESET.title())
-        
-        
-        result = whois.get_whois(target)
-        for key, value in result.items():
-            if key != 'nets':
-                print(Fore.GREEN +'[+] ' + Fore.CYAN + key , ' : ' , Fore.RESET , value)
-            elif key == 'nets':
-                nets_0 = result.get('nets')[0]
-                
-                for key, value in nets_0.items():
-                    print(Fore.GREEN +'[+] ' + Fore.CYAN + key , ' : ' , Fore.RESET , value)
-                
-                if 2 <= len(result.get('nets')):
-                    nets_1 = result.get('nets')[1]                    
-                    for key, value in nets_1.items():
-                        print(Fore.GREEN +'[+] ' + Fore.CYAN + key , ' : ' , Fore.RESET , value)
-                
-                else:
-                    continue
-        
-        
-    if options.dns:
-        print(Fore.GREEN+'''
-            =======|''' + Fore.RED+''' Dns lookup ''' +Fore.GREEN+'''|=======
-        '''+Fore.RESET.title())
-        result = dnsf.dnsl(target)
-        for key, value in result.items():
-            key = str(key)
-            print(Fore.GREEN + '[+] ' + Fore.CYAN + key + ' :' + Fore.RESET)
-            for rec in value:
-                print(str(rec))
 
-    
+    if options.whois:
+        print(Fore.RED+'''
+            =======|''' + Fore.GREEN+''' WHOIS lookup ''' +Fore.RED+'''|=======
+        '''+Fore.RESET.title())
+        
+        try:
+            whois.get_whois(target)
+        except:
+            print(Fore.RESET + 'An error occured')
+            exit()
+
+
+    if options.dns:
+        print(Fore.RED+'''
+            =======|''' + Fore.GREEN+''' DNS lookup ''' +Fore.RED+'''|=======
+        '''+Fore.RESET.title())
+        
+        try:
+            dnsf.dnsl(target)
+        except:
+            print('An error occured')
+
     if options.dork:
         print(Fore.RED+'''
             =======|''' + Fore.GREEN +''' Google dork ''' + Fore.RED +'''|=======
@@ -166,12 +151,13 @@ def main():
         target = 'https://' + target
         crawler.crawl(target)
 
+
     if options.nmap:
         print(Fore.RED+'''
             =======|''' + Fore.GREEN +''' Nmap Scan ''' + Fore.RED +'''|=======
         '''+Fore.RESET.title()+Fore.RESET)
         nmapScan.nmapScanner(target_ip)
+
 cls()
 
 main()
-
