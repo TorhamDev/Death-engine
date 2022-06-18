@@ -15,5 +15,10 @@ This script includes:
 
 ### ToDo List
 
-- [X] whois
-
+- [X] Whois
+- [X] DNS Lookup
+- [X] Directory Search
+- [X] Port Scan and Os Detection
+- [X] Subdomain Scan
+- [ ] Coming Soon
+- [ ] Coming Soon
