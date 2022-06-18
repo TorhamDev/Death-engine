@@ -9,5 +9,6 @@ This script includes:
 3. Dork scanning
 4. Crawler
 5. Port scanner and os identifier
+6. Subdomain scanner
 
 `This script is in development and will soon be released in a beta version`
