@@ -5,6 +5,7 @@ from tools import (
     dnsf,
     googledork,
     nmapScan,
+    subdom
 )
 from webcrawler import crawler
 import os
@@ -69,6 +70,15 @@ parser.add_option(
     action="store_true",
     default=False,
     help="Comprehensive Scan"
+)
+
+parser.add_option(
+    '-s',
+    '--subdom',
+    dest="subdoms",
+    action="store_true",
+    default=False,
+    help="Scaning and find target subdomains"
 )
 
 
@@ -207,6 +217,14 @@ def main():
         '''+Fore.RESET.title()+Fore.RESET
         )
         nmapScan.nmapScanner(target_ip)
+
+    if options.subdoms:
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN + ''' Subdomain Scan ''' + Fore.RED + '''|=======
+        '''+Fore.RESET.title()+Fore.RESET
+        )
+        subdom.run_subdomains(target=target)
 
 
 cls()

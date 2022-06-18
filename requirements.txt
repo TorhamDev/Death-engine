@@ -11,3 +11,6 @@ requests==2.26.0
 sockets==1.0.0
 soupsieve==2.3
 urllib3==1.26.7
+aiohttp==3.8.1
+psycopg2==2.9.3
+tldextract==3.3.0
