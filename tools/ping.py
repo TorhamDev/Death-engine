@@ -1,7 +1,6 @@
 import socket
 
 
-
 def ipfind(target_ip):
     """
     Use the gethostbyname method to get ip address

@@ -10,4 +10,3 @@ def nmapScanner(target):
         print(Fore.RED+"[Done]"+Fore.RESET)
     else:
         os.system(f"nmap -v -sS -sV -sC -A -O {target}")
-      

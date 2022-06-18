@@ -3,8 +3,9 @@ from .linkgrabber import LinkGrabber
 from .domain import *
 from .filelib import *
 
+
 class Spider:
-    
+
     project_name = ''
     base_url = ''
     domain_name = ''
@@ -12,7 +13,7 @@ class Spider:
     crawled_file = ''
     queue = set()
     crawled = set()
-    
+
     def __init__(self, project_name, base_url, domain_name):
         Spider.project_name = project_name
         Spider.base_url = base_url
@@ -28,18 +29,18 @@ class Spider:
         create_files(Spider.project_name, Spider.base_url)
         Spider.queue = file_to_set(Spider.queue_file)
         Spider.crawled = file_to_set(Spider.crawled_file)
-        
 
     @staticmethod
     def crawl_page(thread_name, page_url):
         if page_url not in Spider.crawled:
-            print(Fore.GREEN + '[+]' + Fore.LIGHTGREEN_EX + ' crawling : ' + Fore.RESET + page_url)
+            print(Fore.GREEN + '[+]' + Fore.LIGHTGREEN_EX +
+                  ' crawling : ' + Fore.RESET + page_url)
             #print(str(len(Spider.queue)) + ' addresess in queue & ' + str(len(Spider.crawled)) + ' crawled')
             Spider.add_links_to_queue(Spider.gather_links(page_url))
             Spider.queue.remove(page_url)
             Spider.crawled.add(page_url)
             Spider.update_files()
-    
+
     @staticmethod
     def gather_links(page_url):
         html_string = ''
@@ -57,7 +58,7 @@ class Spider:
             print(Fore.RED + '[*] ' + str(e) + Fore.RESET)
             return set()
         return finder.page_links()
-    
+
     @staticmethod
     def add_links_to_queue(links):
         for url in links:
@@ -66,7 +67,7 @@ class Spider:
             if Spider.domain_name != get_domain_name(url):
                 continue
             Spider.queue.add(url)
-            
+
     @staticmethod
     def update_files():
         set_to_file(Spider.queue, Spider.queue_file)

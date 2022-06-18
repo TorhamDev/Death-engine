@@ -1,4 +1,5 @@
-import threading, os
+import threading
+import os
 from colorama import Fore
 from queue import Queue
 from .spider import Spider
@@ -12,11 +13,13 @@ def create_workers(NUMBER_OF_THREADS):
         t.daemon = True
         t.start()
 
+
 def work():
     while True:
         url = queues.get()
         Spider.crawl_page(threading.current_thread().name, url)
         queues.task_done()
+
 
 def create_jobs(QUEUE_FILE):
     for link in file_to_set(QUEUE_FILE):
@@ -24,11 +27,16 @@ def create_jobs(QUEUE_FILE):
     queues.join()
     crawl_start(QUEUE_FILE)
 
+
 def crawl_start(QUEUE_FILE):
     queued_links = file_to_set(QUEUE_FILE)
     if len(queued_links) > 0:
-        print(Fore.CYAN + '[*]' + Fore.LIGHTCYAN_EX + str(len(queued_links)) + ' links in the queue' + Fore.RESET)
+        print(
+            Fore.CYAN + '[*]' + Fore.LIGHTCYAN_EX +
+            str(len(queued_links)) + ' links in the queue' + Fore.RESET
+        )
         create_jobs(QUEUE_FILE)
+
 
 def crawl(HOMEPAGE):
     PROJECT_NAME = get_sub_domain_name(HOMEPAGE).split('.')
@@ -42,4 +50,3 @@ def crawl(HOMEPAGE):
     queues = Queue()
     create_workers(NUMBER_OF_THREADS)
     crawl_start(QUEUE_FILE)
-
