@@ -1,4 +1,11 @@
-from tools import whois, ping, check_site, dnsf, googledork, nmapScan
+from tools import (
+    whois,
+    ping,
+    check_site,
+    dnsf,
+    googledork,
+    nmapScan,
+)
 from webcrawler import crawler
 import os
 import platform
@@ -56,6 +63,7 @@ parser.add_option(
 )
 
 parser.add_option(
+    "-n",
     "--nmap",
     dest="nmap",
     action="store_true",
