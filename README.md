@@ -12,3 +12,13 @@ This script includes:
 6. Subdomain scanner
 
 `This script is in development and will soon be released in a beta version`
+
+### ToDo List
+
+- [X] Whois
+- [X] DNS Lookup
+- [X] Directory Search
+- [X] Port Scan and Os Detection
+- [X] Subdomain Scan
+- [ ] Coming Soon
+- [ ] Coming Soon
