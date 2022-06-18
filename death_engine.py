@@ -1,43 +1,73 @@
 from tools import whois, ping, check_site, dnsf, googledork, nmapScan
 from webcrawler import crawler
-import os, platform
+import os
+import platform
 from optparse import OptionParser
 from colorama import Fore
-
-
 
 
 parser = OptionParser()
 
 
-parser.add_option("-t", "--target", dest="target",
-                metavar="url",help="define target")
+parser.add_option(
+    "-t",
+    "--target",
+    dest="target",
+    metavar="url",
+    help="define target"
+)
 
-parser.add_option("-w", "--whois", dest="whois",
-                action="store_true", default=False,
-                metavar="ip",help="Target whois lookup")
+parser.add_option(
+    "-w",
+    "--whois",
+    dest="whois",
+    action="store_true",
+    default=False,
+    metavar="ip",
+    help="Target whois lookup"
+)
 
-parser.add_option("-d", "--dns", dest="dns",
-                action="store_true", default=False,
-                metavar="ip",help="Dns lookup")
+parser.add_option(
+    "-d",
+    "--dns",
+    dest="dns",
+    action="store_true",
+    default=False,
+    metavar="ip",
+    help="Dns lookup"
+)
 
-parser.add_option("-D", "--Dork", dest="dork",
-                action="store_true", default=False,
-                help="Google dorking for target data")
+parser.add_option(
+    "-D",
+    "--Dork",
+    dest="dork",
+    action="store_true",
+    default=False,
+    help="Google dorking for target data"
+)
 
-parser.add_option("-c", "--crawl", dest="crawl",
-                action="store_true", default=False,
-                help="Crawl and save website directories")
+parser.add_option(
+    "-c",
+    "--crawl",
+    dest="crawl",
+    action="store_true",
+    default=False,
+    help="Crawl and save website directories"
+)
 
-parser.add_option("--nmap", dest="nmap",
-                action="store_true", default=False,
-                help="Comprehensive Scan")
+parser.add_option(
+    "--nmap",
+    dest="nmap",
+    action="store_true",
+    default=False,
+    help="Comprehensive Scan"
+)
 
 
 def banner():
     '''
     start banner
-    
+
     '''
 
     banner = Fore.RED+'''
@@ -73,14 +103,11 @@ def banner():
     ▣ Version : '''+Fore.YELLOW+'''0.1
     '''
 
-    
     print(banner+Fore.RESET)
-    
-
 
 
 def cls():
-    if platform.uname()[0] == "Linux" :
+    if platform.uname()[0] == "Linux":
         os.system("clear")
     else:
         os.system("cls")
@@ -92,71 +119,87 @@ def main():
     banner()
 
     (options, args) = parser.parse_args()
-    
+
     # if target not define
     if not options.target:
-        print(Fore.GREEN +'[+] ' + Fore.CYAN+"Enter Target Or Use "+Fore.RED+"--help "+Fore.CYAN+"to see help page"+ Fore.RESET)
+        print(
+            Fore.GREEN + '[+] ' + Fore.CYAN+"Enter Target Or Use " +
+            Fore.RED+"--help "+Fore.CYAN+"to see help page" + Fore.RESET
+        )
         exit()
 
     if options.target:
-        
-        target = str(options.target).replace("https://","").replace("http://","").replace("/","")
+
+        target = str(options.target).replace(
+            "https://", "").replace("http://", "").replace("/", "")
 
         # if target not up
         if not check_site.site_is_up(target):
-            print("target not available")
+            print(
+                "\n\n HINT: sample targets => "+Fore.RED +
+                "site.com / google.com / domain.com / sample.com"+Fore.RESET
+            )
+
             exit()
 
         # if target up
         else:
             print("⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞")
             target_ip = ping.ipfind(target)
-            print(Fore.GREEN+"Target = "+ Fore.RESET + target + "\n ")
-            print(Fore.GREEN+"Target Ip = "+ Fore.RESET + target_ip + "\n ")
-
+            print(Fore.GREEN+"Target = " + Fore.RESET + target + "\n ")
+            print(Fore.GREEN+"Target Ip = " + Fore.RESET + target_ip + "\n ")
 
     if options.whois:
-        print(Fore.RED+'''
-            =======|''' + Fore.GREEN+''' WHOIS lookup ''' +Fore.RED+'''|=======
-        '''+Fore.RESET.title())
-        
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN+''' WHOIS lookup ''' + Fore.RED+'''|=======
+        '''+Fore.RESET.title()
+        )
+
         try:
             whois.get_whois(target)
         except:
             print(Fore.RESET + 'An error occured')
             exit()
 
-
     if options.dns:
-        print(Fore.RED+'''
-            =======|''' + Fore.GREEN+''' DNS lookup ''' +Fore.RED+'''|=======
-        '''+Fore.RESET.title())
-        
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN+''' DNS lookup ''' + Fore.RED+'''|=======
+        '''+Fore.RESET.title()
+        )
+
         try:
             dnsf.dnsl(target)
         except:
             print('An error occured')
 
     if options.dork:
-        print(Fore.RED+'''
-            =======|''' + Fore.GREEN +''' Google dork ''' + Fore.RED +'''|=======
-        '''+Fore.RESET.title())
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN + ''' Google dork ''' + Fore.RED + '''|=======
+        '''+Fore.RESET.title()
+        )
         googledork.search(target=target)
 
-
     if options.crawl:
-        print(Fore.RED+'''
-            =======|''' + Fore.GREEN +''' Crawl ''' + Fore.RED +'''|=======
-        '''+Fore.RESET.title()+Fore.RESET)
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN + ''' Crawl ''' + Fore.RED + '''|=======
+        '''+Fore.RESET.title()+Fore.RESET
+        )
         target = 'https://' + target
+
         crawler.crawl(target)
 
-
     if options.nmap:
-        print(Fore.RED+'''
-            =======|''' + Fore.GREEN +''' Nmap Scan ''' + Fore.RED +'''|=======
-        '''+Fore.RESET.title()+Fore.RESET)
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN + ''' Nmap Scan ''' + Fore.RED + '''|=======
+        '''+Fore.RESET.title()+Fore.RESET
+        )
         nmapScan.nmapScanner(target_ip)
+
 
 cls()
 
