@@ -20,5 +20,6 @@ This script includes:
 - [X] Directory Search
 - [X] Port Scan and Os Detection
 - [X] Subdomain Scan
+- [X] Wappalyzer Scan
 - [ ] Coming Soon
 - [ ] Coming Soon

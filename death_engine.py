@@ -5,7 +5,8 @@ from tools import (
     dnsf,
     googledork,
     nmapScan,
-    subdom
+    subdom,
+    wappalyzer,
 )
 from webcrawler import crawler
 import os
@@ -79,6 +80,14 @@ parser.add_option(
     action="store_true",
     default=False,
     help="Scaning and find target subdomains"
+)
+parser.add_option(
+    '-W',
+    '--wappalyzer',
+    dest="wappalyzer",
+    action="store_true",
+    default=False,
+    help="Scaning and find target site tech with wappalyzer scaner"
 )
 
 
@@ -225,6 +234,16 @@ def main():
         '''+Fore.RESET.title()+Fore.RESET
         )
         subdom.run_subdomains(target=target)
+
+
+
+    if options.wappalyzer:
+        print(
+            Fore.RED+'''
+            =======|''' + Fore.GREEN + ''' Wappalyzer Scan ''' + Fore.RED + '''|=======
+        '''+Fore.RESET.title()+Fore.RESET
+        )
+        wappalyzer.wappalyzer_scan(target)
 
 
 cls()
