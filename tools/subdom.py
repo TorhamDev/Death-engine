@@ -273,7 +273,7 @@ def subdomains(hostname, tout, conf_path):
 
 def save_subdomain_scan_result(target, subdomains):
 
-    with open(f"./{target}_domains_list.txt", "w") as f:
+    with open(f"{target}_domains_list.txt", "w") as f:
         for domain in subdomains:
             f.write(f"{domain}\n")
 
