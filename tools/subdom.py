@@ -261,6 +261,7 @@ def subdomains(hostname, tout, conf_path):
     if len(found) != 0:
         print('\n' + G + '[+]' + C + ' Results : ' + W + '\n')
         for url in found:
+            
             print(G + '[+] ' + C + url)
 
     print(
@@ -271,11 +272,14 @@ def subdomains(hostname, tout, conf_path):
     return found
 
 
-def save_subdomain_scan_result(target, subdomains):
+def save_subdomain_scan_result(target: str, subdomains: list) -> None:
 
-    with open(f"{target}_domains_list.txt", "w") as f:
-        for domain in subdomains:
-            f.write(f"{domain}\n")
+    target = target.replace("https://", "").replace("http://", "")
+    curpath = os.path.abspath(os.curdir)
+    file_path = os.path.join(curpath, f'{target}_domains_list.txt')
+    f = open(file_path, "w")
+    for domain in subdomains:
+        f.write(f"{domain}\n")
 
     print(
         G + f"subdomain scan result saved in " + Y +
