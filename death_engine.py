@@ -7,14 +7,22 @@ from tools import (
     nmapScan,
     subdom,
     wappalyzer,
+    info,
 )
 from webcrawler import crawler
 import os
 import platform
 from optparse import OptionParser
 from colorama import Fore
+from banners import print_main_banner
+
+from rich.console import Console
+from rich import print
+from rich.traceback import install
+install(show_locals=True)
 
 
+console = Console()
 parser = OptionParser()
 
 
@@ -89,48 +97,14 @@ parser.add_option(
     default=False,
     help="Scaning and find target site tech with wappalyzer scaner"
 )
-
-
-def banner():
-    '''
-    start banner
-
-    '''
-
-    banner = Fore.RED+'''
-                      ,____
-                      |---.\\
-              ___     |    `
-             / .-\  ./=)
-            |  |"|_/\/|
-            ;  |-;| /_|
-           / \_| |/ \ |
-          /      \/\( |
-          |   /  |` ) |
-          /   \ _/    |
-         /--._/  \    |
-         `/|)    |    /
-           /     |   |
-         .'      |   |
-        /         \  |
-       (_.-.__.__./  /\n'''+Fore.GREEN+'''
-  ▓█████▄ ▓█████  ▄▄▄      ▄▄▄█████▓ ██░ ██             ▓█████  ███▄    █   ▄████  ██▓ ███▄    █ ▓█████ 
-  ▒██▀ ██▌▓█   ▀ ▒████▄    ▓  ██▒ ▓▒▓██░ ██▒            ▓█   ▀  ██ ▀█   █  ██▒ ▀█▒▓██▒ ██ ▀█   █ ▓█   ▀ 
-  ░██   █▌▒███   ▒██  ▀█▄  ▒ ▓██░ ▒░▒██▀▀██░            ▒███   ▓██  ▀█ ██▒▒██░▄▄▄░▒██▒▓██  ▀█ ██▒▒███   
-  ░▓█▄   ▌▒▓█  ▄ ░██▄▄▄▄██ ░ ▓██▓ ░ ░▓█ ░██             ▒▓█  ▄ ▓██▒  ▐▌██▒░▓█  ██▓░██░▓██▒  ▐▌██▒▒▓█  ▄ 
-  ░▒████▓ ░▒████▒ ▓█   ▓██▒  ▒██▒ ░ ░▓█▒░██▓            ░▒████▒▒██░   ▓██░░▒▓███▀▒░██░▒██░   ▓██░░▒████▒
-   ▒▒▓  ▒ ░░ ▒░ ░ ▒▒   ▓▒█░  ▒ ░░    ▒ ░░▒░▒            ░░ ▒░ ░░ ▒░   ▒ ▒  ░▒   ▒ ░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
-   ░ ▒  ▒  ░ ░  ░  ▒   ▒▒ ░    ░     ▒ ░▒░ ░             ░ ░  ░░ ░░   ░ ▒░  ░   ░  ▒ ░░ ░░   ░ ▒░ ░ ░  ░
-   ░ ░  ░    ░     ░   ▒     ░       ░  ░░ ░               ░      ░   ░ ░ ░ ░   ░  ▒ ░   ░   ░ ░    ░   
-     ░       ░  ░      ░  ░          ░  ░  ░               ░  ░         ░       ░  ░           ░    ░  ░
-   ░ 
-   '''+Fore.LIGHTBLUE_EX+'''
-    ▣ Created By '''+Fore.YELLOW+''': TorhamDev and psyk3r '''+Fore.LIGHTBLUE_EX+'''
-
-    ▣ Version : '''+Fore.YELLOW+'''0.1
-    '''
-
-    print(banner+Fore.RESET)
+parser.add_option(
+    '-I',
+    '--info',
+    dest="info",
+    action="store_true",
+    default=False,
+    help="Get Death Engine Information"
+)
 
 
 def cls():
@@ -143,15 +117,17 @@ def cls():
 def main():
 
     # start banner
-    banner()
+    print_main_banner()
 
     (options, args) = parser.parse_args()
+
+    if options.info:
+        info.print_readme()
 
     # if target not define
     if not options.target:
         print(
-            Fore.GREEN + '[+] ' + Fore.CYAN+"Enter Target Or Use " +
-            Fore.RED+"--help "+Fore.CYAN+"to see help page" + Fore.RESET
+            '[+] ' + "Enter Target Or Use " + "--help "+"to see help page"
         )
         exit()
 
@@ -171,17 +147,13 @@ def main():
 
         # if target up
         else:
-            print("⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞⬞")
+            console.rule("[bold red]"+"death engine".title())
             target_ip = ping.ipfind(target)
-            print(Fore.GREEN+"Target = " + Fore.RESET + target + "\n ")
-            print(Fore.GREEN+"Target Ip = " + Fore.RESET + target_ip + "\n ")
+            print("[bold gold3]Target [/bold gold3]: [white underline]" + target + "\n")
+            print("[bold gold3]Target Ip [/bold gold3]: " + target_ip + "\n ")
 
     if options.whois:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN+''' WHOIS lookup ''' + Fore.RED+'''|=======
-        '''+Fore.RESET.title()
-        )
+        console.rule("[bold yellow]"+"WHOIS lookup".title())
 
         try:
             whois.get_whois(target)
@@ -190,11 +162,7 @@ def main():
             exit()
 
     if options.dns:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN+''' DNS lookup ''' + Fore.RED+'''|=======
-        '''+Fore.RESET.title()
-        )
+        console.rule("[bold yellow]"+"DNS lookup".title())
 
         try:
             dnsf.dnsl(target)
@@ -202,47 +170,25 @@ def main():
             print('An error occured')
 
     if options.dork:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN + ''' Google dork ''' + Fore.RED + '''|=======
-        '''+Fore.RESET.title()
-        )
+        console.rule("[bold yellow]"+"Google dork".title())
         googledork.search(target=target)
 
     if options.crawl:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN + ''' Crawl ''' + Fore.RED + '''|=======
-        '''+Fore.RESET.title()+Fore.RESET
-        )
+        console.rule("[bold yellow]"+"Crawl".title())
         target = 'https://' + target
 
         crawler.crawl(target)
 
     if options.nmap:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN + ''' Nmap Scan ''' + Fore.RED + '''|=======
-        '''+Fore.RESET.title()+Fore.RESET
-        )
+        console.rule("[bold yellow]"+"Nmap Scan".title())
         nmapScan.nmapScanner(target_ip)
 
     if options.subdoms:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN + ''' Subdomain Scan ''' + Fore.RED + '''|=======
-        '''+Fore.RESET.title()+Fore.RESET
-        )
+        console.rule("[bold yellow]"+"Subdomain Scan".title())
         subdom.run_subdomains(target=target)
 
-
-
     if options.wappalyzer:
-        print(
-            Fore.RED+'''
-            =======|''' + Fore.GREEN + ''' Wappalyzer Scan ''' + Fore.RED + '''|=======
-        '''+Fore.RESET.title()+Fore.RESET
-        )
+        console.rule("[bold yellow]"+"Wappalyzer Scan".title())
         wappalyzer.wappalyzer_scan(target)
 
 
