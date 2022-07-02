@@ -1,18 +1,19 @@
 from Wappalyzer import Wappalyzer, WebPage
-from colorama import Fore
+from rich.console import Console
+from json import dumps
+from requests.exceptions import SSLError
+
+console = Console()
+
 
 def wappalyzer_scan(target):
-    webpage = WebPage.new_from_url(f'https://{target}')
+    try:
+        webpage = WebPage.new_from_url(f'https://{target}')
+    except SSLError:
+        webpage = WebPage.new_from_url(f'http://{target}')
+
     wappalyzer = Wappalyzer.latest()
 
     data = wappalyzer.analyze_with_versions_and_categories(webpage)
 
-    for key, value in data.items():
-        print(Fore.YELLOW+f"{key}:"+Fore.RESET)
-        print(Fore.MAGENTA+f"\t Versions:\n")
-        for version in value["versions"]:
-            print(Fore.RED+f"\t\t{version}, ")
-        
-        print(Fore.MAGENTA+f"\tCategories:\n")
-        for categorie in value['categories']:
-            print(Fore.RED+f"\t\t{categorie}, ")
+    console.print_json(dumps(data))
