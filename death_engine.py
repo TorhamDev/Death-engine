@@ -12,6 +12,8 @@ from tools import (
 from webcrawler import crawler
 import os
 import platform
+import datetime
+import time
 from optparse import OptionParser
 from colorama import Fore
 from banners import print_main_banner
@@ -116,6 +118,8 @@ def cls():
 
 def main():
 
+    start_scan_time = time.time()
+
     # start banner
     print_main_banner()
 
@@ -150,7 +154,7 @@ def main():
             console.rule("[bold red]"+"death engine".title())
             target_ip = ping.ipfind(target)
             print("[bold gold3]Target [/bold gold3]: [white underline]" + target + "\n")
-            print("[bold gold3]Target Ip [/bold gold3]: " + target_ip + "\n ")
+            print("[bold gold3]Target Ip [/bold gold3]: " + target_ip + "\n")
 
     if options.whois:
         console.rule("[bold yellow]"+"WHOIS lookup".title())
@@ -190,6 +194,21 @@ def main():
     if options.wappalyzer:
         console.rule("[bold yellow]"+"Wappalyzer Scan".title())
         wappalyzer.wappalyzer_scan(target)
+
+   
+    # scan time report
+    console.rule("[bold yellow]"+"Scan time".title())
+    time.sleep(70)
+    end_scan_time = time.time()
+    diff = int(end_scan_time - start_scan_time)
+    minutes, seconds = divmod(diff, 60)
+    hours, minutes = divmod(minutes, 60)
+
+
+    print("[bold light_cyan1]start time[/bold light_cyan1]: " + str(start_scan_time))
+    print("[bold light_cyan1]end time[/bold light_cyan1]: " + str(end_scan_time))
+
+    print(f"\thours: {hours} & minutes: {minutes} & seconds: {seconds}")
 
 
 cls()
