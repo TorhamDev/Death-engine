@@ -15,8 +15,7 @@ try:
     from webcrawler import crawler
     from os import system
     import platform
-    import datetime
-    from time import time, sleep
+    from time import time
     from optparse import OptionParser
     from colorama import Fore
     from banners import print_main_banner
@@ -217,7 +216,6 @@ def main():
    
     # scan time report
     console.rule("[bold yellow]"+"Scan time".title())
-    sleep(70)
     end_scan_time = time()
     diff = int(end_scan_time - start_scan_time)
     minutes, seconds = divmod(diff, 60)
