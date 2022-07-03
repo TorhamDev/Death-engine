@@ -12,7 +12,7 @@ This script includes:
 6. Subdomain scanner
 7. Wappalyzer Scan
 
-`This script is in development and will soon be released in a beta version`
+`This script is in development and will soon be released in an alpha version`
 
 
 ## How to run?
@@ -25,7 +25,7 @@ cd Death-engine
 pip install -r requirements.txt
 
 # run death engine and get help
-python death_engine.py -h
+python3 death_engine.py -h
 ```
 
 
@@ -37,6 +37,7 @@ python death_engine.py -h
 - [X] Whois
 - [X] DNS Lookup
 - [X] Dork scanning
+- [ ] Directory fuzzer
 - [X] Crawler
 - [X] Port Scan and Os Detection
 - [X] Subdomain Scan
