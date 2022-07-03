@@ -63,8 +63,8 @@ parser.add_option(
 )
 
 parser.add_option(
-    "-D",
-    "--Dork",
+    "-G",
+    "--google-dork",
     dest="dork",
     action="store_true",
     default=False,
@@ -72,6 +72,7 @@ parser.add_option(
 )
 
 parser.add_option(
+    "-D",
     "--dir",
     dest="directory_discovery",
     action="store_true",
@@ -153,7 +154,6 @@ def main():
 
         target = str(options.target).replace(
             "https://", "").replace("http://", "").replace("/", "")
-        print(target)
 
         # if target not up
         if not check_site.site_is_up(target):
@@ -213,7 +213,6 @@ def main():
         console.rule("[bold yellow]"+"Wappalyzer Scan".title())
         wappalyzer.wappalyzer_scan(target)
 
-   
     # scan time report
     console.rule("[bold yellow]"+"Scan time".title())
     end_scan_time = time()
@@ -221,8 +220,8 @@ def main():
     minutes, seconds = divmod(diff, 60)
     hours, minutes = divmod(minutes, 60)
 
-
-    print("[bold light_cyan1]start time[/bold light_cyan1]: " + str(start_scan_time))
+    print("[bold light_cyan1]start time[/bold light_cyan1]: " +
+          str(start_scan_time))
     print("[bold light_cyan1]end time[/bold light_cyan1]: " + str(end_scan_time))
 
     print(f"\thours: {hours} & minutes: {minutes} & seconds: {seconds}")
