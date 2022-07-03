@@ -21,27 +21,41 @@ def random_useragent():
     return(useragent)
 
 
-def select_dorks_file():
+def select_dorks_file() -> str:
+
     count = 0
     pwd = getcwd()
-    dorks_path = join(pwd, "tools/google_dork")
-    print(Fore.CYAN +
-          "[*] Dorks path, you can add your dork files here : ".title(), dorks_path + '\n')
+    dorks_path = join(pwd, "conf/google_dork")
+    print(Fore.CYAN + "[*] Dorks path, you can add your dork files here : ".title(), dorks_path + '\n')  # noqa
+
     dork_list = [f for f in listdir(dorks_path) if isfile(join(dorks_path, f))]
     dork_selected = ''
-    for i in dork_list:
-        print(Fore.RED + f"\t[{count}]"+Fore.RESET+" : "+Fore.BLUE+f"{i}")
+
+    for dork_file in dork_list:
+        print(
+            Fore.RED + f"\t[{count}]"+Fore.RESET +
+            " : "+Fore.BLUE+f"{dork_file}"
+        )
         count += 1
 
-    print(Fore.GREEN+"\n[*] Select a dork list".title())
-    dork_selected = int(
-        input(Fore.GREEN+"Enter Dork List Number: "+Fore.RESET))
+    print(Fore.RED + f"\t[Q]"+Fore.RESET+" : "+Fore.BLUE+f"Enter Q for exit.")
 
-    return(dork_list[dork_selected])
+    print(Fore.GREEN+"\n[*] Select a dork list".title())
+    dork_selected = input(Fore.GREEN+"Enter Dork List Number: "+Fore.RESET)
+
+    if dork_selected.lower() == "q":
+        return None
+
+    return(dork_list[int(dork_selected)])
 
 
 def search(target):
-    dorks = open(f"./tools/google_dork/{select_dorks_file()}", 'rb')
+    dork_names_list = select_dorks_file()
+
+    if dork_names_list == None:
+        return
+
+    dorks = open(f"./conf/google_dork/{dork_names_list}", 'rb')
     dorks = dorks.readlines()
 
     search_output = []
