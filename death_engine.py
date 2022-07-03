@@ -8,19 +8,26 @@ from tools import (
     subdom,
     wappalyzer,
     info,
+    directory_discovery,
 )
-from webcrawler import crawler
-import os
-import platform
-import datetime
-import time
-from optparse import OptionParser
-from colorama import Fore
-from banners import print_main_banner
 
-from rich.console import Console
-from rich import print
-from rich.traceback import install
+try:
+    from webcrawler import crawler
+    from os import system
+    import platform
+    import datetime
+    from time import time, sleep
+    from optparse import OptionParser
+    from colorama import Fore
+    from banners import print_main_banner
+    from rich.console import Console
+    from rich import print
+    from rich.traceback import install
+except:
+    print("Atleast one of the required libraries is missing.\nTry reinstalling them from requirements.txt file or the binary versions of them and if the issue persists, contact the script maintainers")
+    exit()
+
+
 install(show_locals=True)
 
 
@@ -63,6 +70,14 @@ parser.add_option(
     action="store_true",
     default=False,
     help="Google dorking for target data"
+)
+
+parser.add_option(
+    "--dir",
+    dest="directory_discovery",
+    action="store_true",
+    default=False,
+    help="Directory discovery"
 )
 
 parser.add_option(
@@ -111,14 +126,14 @@ parser.add_option(
 
 def cls():
     if platform.uname()[0] == "Linux":
-        os.system("clear")
+        system("clear")
     else:
-        os.system("cls")
+        system("cls")
 
 
 def main():
 
-    start_scan_time = time.time()
+    start_scan_time = time()
 
     # start banner
     print_main_banner()
@@ -139,6 +154,7 @@ def main():
 
         target = str(options.target).replace(
             "https://", "").replace("http://", "").replace("/", "")
+        print(target)
 
         # if target not up
         if not check_site.site_is_up(target):
@@ -178,10 +194,13 @@ def main():
         googledork.search(target=target)
 
     if options.crawl:
-        console.rule("[bold yellow]"+"Crawl".title())
+        console.rule("[bold yellow]" + "Crawl".title())
         target = 'https://' + target
-
         crawler.crawl(target)
+
+    if options.directory_discovery:
+        console.rule("[bold tellow]" + "Directory discovery")
+        directory_discovery.search(target)
 
     if options.nmap:
         console.rule("[bold yellow]"+"Nmap Scan".title())
@@ -198,8 +217,8 @@ def main():
    
     # scan time report
     console.rule("[bold yellow]"+"Scan time".title())
-    time.sleep(70)
-    end_scan_time = time.time()
+    sleep(70)
+    end_scan_time = time()
     diff = int(end_scan_time - start_scan_time)
     minutes, seconds = divmod(diff, 60)
     hours, minutes = divmod(minutes, 60)
